@@ -60,7 +60,7 @@ nav a {
     color: #fff;
     margin: 0 0.5rem;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 0.9rem;
     padding: 0.5rem;
     transition: color 0.3s ease, transform 0.3s ease;
@@ -116,7 +116,7 @@ nav a {
     color: #fff;
     margin: 0 0.5rem;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 0.9rem;
     padding: 0.5rem;
     transition: color 0.3s ease, transform 0.3s ease;
