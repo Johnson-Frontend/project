@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Not Found</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="chat.css">
+    
     <style>
         body {
             display: flex;
@@ -58,5 +60,143 @@
         <br>
         <br>
     </div>
+
+
+                  <!-- Chat widget -->
+                  <div id="chatContainer"></div>
+
+                  <script src="script.js"></script>
+                  <script>
+                      document.addEventListener('DOMContentLoaded', function() {
+                          // Focus on the input field when the page loads
+                          const todoInput = document.getElementById('todo-input');
+                          if (todoInput) {
+                              todoInput.focus();
+                          }
+              
+                          // Load chat widget HTML
+                          fetch('chat.html')
+                              .then(response => response.text())
+                              .then(data => {
+                                  document.getElementById('chatContainer').innerHTML = data;
+                                  // Initialize chat widget functionality
+                                  const chatButton = document.getElementById('chatButton');
+                                  const chatContainer = document.querySelector('.chat-container');
+                                  const closeChat = document.getElementById('closeChat');
+              
+                                  if (chatButton) {
+                                      chatButton.addEventListener('click', function() {
+                                          chatContainer.classList.toggle('active');
+                                          console.log('Chat button clicked, chatContainer active:', chatContainer.classList.contains('active'));
+                                      });
+                                  } else {
+                                      console.error('Chat button not found!');
+                                  }
+              
+                                  if (closeChat) {
+                                      closeChat.addEventListener('click', function() {
+                                          chatContainer.classList.remove('active');
+                                          console.log('Close chat button clicked');
+                                      });
+                                  } else {
+                                      console.error('Close chat button not found!');
+                                  }
+                              })
+                              .catch(error => console.error('Error loading chat widget:', error));
+                      });
+              
+                      function navigateTo(url) {
+                          window.location.href = url;
+                      }
+             
+           function searchProjects() {
+               const input = document.getElementById('searchInput').value.toLowerCase();
+               const projectCategories = document.querySelectorAll('.project-category');
+               let firstMatch = null;
+   
+               projectCategories.forEach(category => {
+                   const links = category.querySelectorAll('a');
+   
+                   links.forEach(link => {
+                       const text = link.textContent.toLowerCase();
+                       if (text.includes(input)) {
+                           link.innerHTML = text.replace(new RegExp(input, 'gi'), match => `<span class="highlight">${match}</span>`);
+                           if (!firstMatch) {
+                               firstMatch = link;
+                           }
+                       } else {
+                           link.innerHTML = text; // Reset the link text
+                       }
+                   });
+               });
+   
+               // Scroll to the first matching result
+               if (firstMatch) {
+                   firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+               }
+           }
+   
+           function openHighlightedLinks() {
+               const highlightedLinks = document.querySelectorAll('.highlight');
+               highlightedLinks.forEach(highlight => {
+                   const link = highlight.closest('a');
+                   if (link) {
+                       window.open(link.href, '_blank');
+                   }
+               });
+           }
+   
+           function scrollToTop() {
+               const searchInput = document.getElementById('searchInput');
+               searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+           }
+   
+           document.addEventListener('DOMContentLoaded', function() {
+               const projectListLink = document.querySelector('.project-list-link');
+               if (projectListLink) {
+                   projectListLink.classList.add('pulse');
+                   setTimeout(() => {
+                       projectListLink.classList.remove('pulse');
+                   }, 1500); // Remove the pulse class after 1.5 seconds
+               }
+           });
+   
+           document.addEventListener('DOMContentLoaded', function() {
+               const searchInput = document.getElementById('searchInput');
+               const placeholderText = "Search Johnson's projects...";
+               let index = 0;
+   
+               function type() {
+                   if (index < placeholderText.length) {
+                       searchInput.setAttribute('placeholder', placeholderText.substring(0, index + 1));
+                       index++;
+                       setTimeout(type, 100); // Adjust typing speed here
+                   } else {
+                       setTimeout(() => {
+                           index = 0;
+                           type();
+                       }, 2000); // Pause before restarting
+                   }
+               }
+   
+               type();
+           });
+   
+           // Load footer.html into the footer-placeholder div
+           fetch('footer.html')
+               .then(response => response.text())
+               .then(data => {
+                   document.getElementById('footer-placeholder').innerHTML = data;
+               });
+   
+           // Load header.html into the header-placeholder div
+           fetch('header.html')
+               .then(response => response.text())
+               .then(data => {
+                   document.getElementById('header-placeholder').innerHTML = data;
+               });
+       </script>
+
+
 </body>
 </html>
