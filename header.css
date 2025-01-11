@@ -85,13 +85,24 @@ nav a:hover {
     padding: 0.5rem 1rem;
     border-radius: 15px;
     position: relative;
+    display: inline-block;
+}
+
+
+/* Special "Get in touch" link styling */
+.get-in-touch-link {
+    color: #3498db; /* Text color */
+    background: white; /* Background color */
+    padding: 0.5rem 1rem; /* Same padding as project list */
+    border-radius: 15px; /* Same border radius as project list */
+    position: relative;
     transition: background 0.3s ease, transform 0.3s ease;
     display: inline-block;
-    animation: pulse 1.5s ease infinite;
+    margin: 0 0.5rem; /* Same margin as project list */
 }
-.project-list-link:hover {
-    background-color: #f1c40f;
-    color: #fff;
+.get-in-touch-link:hover {
+    background-color: #ffd941; /* Change background on hover */
+    color: #9b59b6; /* Keep text color on hover */
     transform: translateY(-2px);
 }
 
