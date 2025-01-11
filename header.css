@@ -101,7 +101,7 @@ nav a:hover {
     margin: 0 0.5rem; /* Same margin as project list */
 }
 .get-in-touch-link:hover {
-    background-color: #ffd941; /* Change background on hover */
+    background-color: #ffe26e; /* Change background on hover */
     color: #9b59b6; /* Keep text color on hover */
     transform: translateY(-2px);
 }
