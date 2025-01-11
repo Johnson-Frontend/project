@@ -1,58 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Widget</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Widget with Overlapping Profile Photo</title>
+  <!-- Google font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
 
+  <style>
+    /* 1) Chat widget container (anchors bottom-right) */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* 2) The chat button (ellipse style) */
+    .chat-button {
+      position: relative; /* allows absolutely positioned elements within */
+      background-image: linear-gradient(to right, #6a11cb 20%, #2575fc 80%);
+      color: white;
+      padding: 12px 50px 12px 20px; /* extra padding on right to make space for photo overlap */
+      border-radius: 50px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* 3) Chat button hover effect */
+    .chat-button:hover {
+      background-image: linear-gradient(to right, #5a0ebc, #1f63e0);
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* 4) Container inside the chat button (icon + text) */
+    .chat-button-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 5) Overlapping profile photo in top-right corner of the button */
+    .profile-photo {
+      position: absolute;
+      top: -29px;     /* pushes the circle upward from the button's top edge */
+      right: -10px;   /* pushes the circle rightward from the button's right edge */
+      width: 45px;    /* circle diameter */
+      height: 45px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid rgb(76, 50, 193); /* gives a white border around the circle */
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    }
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 6) The collapsible chat container */
+    .chat-container {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 500px;
+      background-color: rgba(249, 249, 249, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-container.active {
+      display: flex;
+    }
+
+    /* 7) Chat header area */
+    .chat-header {
+      background-image: linear-gradient(
+        to right,
+        rgba(106, 17, 203, 0.9) 20%,
+        rgba(37, 117, 252, 0.9) 80%
+      );
+      color: white;
+      padding: 15px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* 8) Chat messages area */
+    .chat-messages {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: rgba(249, 249, 249, 0.6);
+    }
+    .message {
+      margin-bottom: 10px;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 80%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      font-size: 12px;
+    }
+    .message.bot {
+      background: rgba(255, 255, 255, 0.9);
+      margin-right: auto;
+      border-radius: 0 15px 15px 15px;
+      font-size: 14px;
+      color: #333;
+    }
+    .message.user {
+      background-color: rgba(106, 17, 203, 0.9);
+      color: white;
+      margin-left: auto;
+      border-radius: 15px 0 15px 15px;
+    }
+
+    /* 9) Chat options (buttons at bottom) */
+    .chat-options {
+      padding: 15px;
+      display: flex;
+      color: black;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .option-button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      text-align: left;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      color: #333;
+    }
+    .option-button:hover {
+      background-image: linear-gradient(
+        to right,
+        rgba(106, 17, 203, 0.9) 20%,
+        rgba(37, 117, 252, 0.9) 80%
+      );
+      color: white;
+    }
+    .bold-text {
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="chat-widget" id="chatWidget">
-        <div class="chat-button" id="chatButton">
-            <div class="chat-button-content">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
-                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
-                </svg>
-                <span>Chat</span>
-            </div>
-            <div class="notification">1</div>
-        </div>
-        <div class="chat-container" id="chatContainer">
-            <div class="chat-header">
-                <h3>Chat with Johnson</h3>
-            </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="timestamp bold-text">Johnson</div>
-                <br>
-                <div class="message bot">
-                    Hello! Please contact me at 
-                    <a href="mailto:johnsonmarketer@outlook.com" style="all: unset; color: black; text-decoration: underline; cursor: pointer;">johnsonmarketer@outlook.com</a>
-                    <br>
-                </div>
-            </div>
-            <div class="chat-options">
-                <button class="option-button" onclick="navigateTo('https://www.johnsonmarketer.com')">Back to Home</button>
-                <button class="option-button" onclick="navigateTo('https://projects.johnsonmarketer.com')">Back to Project Checklist</button>
-                <button class="option-button" onclick="navigateTo('https://shortcuts.johnsonmarketer.com')">Back to Shortcuts</button>
-            </div>
-        </div>
+  <!-- Chat widget container -->
+  <div class="chat-widget" id="chatWidget">
+    <!-- The chat button -->
+    <div class="chat-button" id="chatButton">
+      <!-- Icon + text -->
+      <div class="chat-button-content">
+        <!-- Example icon (replace or keep) -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="white"
+        >
+          <path
+            d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14
+               c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2
+               2V4h16v12z"
+          />
+        </svg>
+        <span>Chat</span>
+      </div>
+
+      <!-- Profile photo overlapping top-right corner -->
+      <div class="profile-photo">
+        <img
+          src="image/marketer.png"
+          alt="Johnson's Profile"
+        />
+      </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const chatButton = document.getElementById('chatButton');
-            const chatContainer = document.getElementById('chatContainer');
+    <!-- The collapsible chat container -->
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-header">
+        <h3>Chat with Johnson</h3>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="timestamp bold-text">Johnson</div>
+        <br />
+        <div class="message bot">
+          Hello! Please contact me at
+          <a
+            href="mailto:johnsonmarketer@outlook.com"
+            style="all: unset; color: black; text-decoration: underline; cursor: pointer;"
+          >
+            johnsonmarketer@outlook.com
+          </a>
+          <br />
+        </div>
+      </div>
+      <div class="chat-options">
+        <button
+          class="option-button"
+          onclick="navigateTo('https://www.johnsonmarketer.com')"
+        >
+          Back to Home
+        </button>
+        <button
+          class="option-button"
+          onclick="navigateTo('https://projects.johnsonmarketer.com')"
+        >
+          Back to Project Checklist
+        </button>
+        <button
+          class="option-button"
+          onclick="navigateTo('https://shortcuts.johnsonmarketer.com')"
+        >
+          Back to Shortcuts
+        </button>
+      </div>
+    </div>
+  </div>
 
-            // Toggle chat container visibility
-            chatButton.addEventListener('click', function() {
-                chatContainer.classList.toggle('active');
-            });
-        });
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const chatButton = document.getElementById("chatButton");
+      const chatContainer = document.getElementById("chatContainer");
 
-        function navigateTo(url) {
-            window.location.href = url;
-        }
-    </script>
+      // Toggle chat container visibility on button click
+      chatButton.addEventListener("click", function () {
+        chatContainer.classList.toggle("active");
+      });
+    });
+
+    function navigateTo(url) {
+      window.location.href = url;
+    }
+  </script>
 </body>
 </html>
