@@ -1,5 +1,12 @@
 /* header.css */
 
+/* Reset some basic elements */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 200vh !important;
+}
+
 header {
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     padding: 1.5rem 0;
@@ -8,6 +15,20 @@ header {
     border-bottom-right-radius: 20px;
     box-shadow: none;
     height: auto; /* Ensure header height is auto */
+}
+
+.sticky-header {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .nav-logo a {
@@ -37,20 +58,19 @@ header {
     color: #fff;
 }
 
-nav {
+.main-nav {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-nav nav {
-    margin: 0 auto;
+.nav-links {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 1rem;
 }
 
 nav a {
@@ -92,10 +112,19 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-/* ========== Add these lines at the bottom ========== */
-.sticky-header {
-    position: -webkit-sticky; /* for Safari */
-    position: sticky;
-    top: 0;
-    z-index: 9999; /* make sure it’s above other elements */
+/* Add these debug styles */
+.debug-header {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9999 !important;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%) !important;
 }
+
+/* Ensure no overflow is hidden */
+html, body {
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}
+
+

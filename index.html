@@ -826,7 +826,41 @@
     </style>
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <!-- Directly include the header -->
+    <header class="sticky-header debug-header">
+        <nav class="main-nav">
+            <div class="nav-logo">
+                <a href="https://projects.johnsonmarketer.com/">
+                    <img id="logo" src="https://raw.githubusercontent.com/Johnson-Frontend/project/ed55a241c8b75ccef3b99e1cba704eb85ea39ad8/image/logo.svg" alt="Brand Logo">
+                </a>
+                <a href="https://projects.johnsonmarketer.com/" style="text-decoration: none; color: inherit;">
+                    <span style="font-size: 1.2rem;">ByteBoost</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="https://projects.johnsonmarketer.com/">Home</a>
+                <a href="https://projects.johnsonmarketer.com/404.html">Services</a>
+                <a href="https://projects.johnsonmarketer.com/404.html">ML</a>
+                <a href="https://projects.johnsonmarketer.com/404.html">About</a>
+                <a href="https://projects.johnsonmarketer.com/404.html">Contact</a>
+                <a href="https://projects.johnsonmarketer.com" class="project-list-link pulse">Project List</a>
+                <a href="https://johnsonmarketer.com/contact.html" class="get-in-touch-link">Get in touch</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Add this script right after the header -->
+    <script>
+        // Debug script to check if header is working
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.debug-header');
+            const scrollPosition = window.scrollY;
+            console.log('Scroll position:', scrollPosition);
+            console.log('Header position:', header.getBoundingClientRect().top);
+        });
+    </script>
+
+    <div style="height: 100px;"></div>
     <div class="hero-image-placeholder"></div>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="">
@@ -1082,11 +1116,13 @@
             });
 
         // Load header.html into the header-placeholder div
+        <!--
         fetch('header.html')
       .then(response => response.text())
       .then(html => {
           document.getElementById('header-placeholder').innerHTML = html;
       });
+        -->
     </script>
 </body>
 </html>
