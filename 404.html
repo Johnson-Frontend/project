@@ -1,220 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Not Found</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Not Found</title>
 
-    <!-- 1) Load your existing header.css (unchanged) -->
-    <link rel="stylesheet" href="../header.css">
+  <!-- 1) Load your existing header.css (unchanged) -->
+  <link rel="stylesheet" href="../header.css">
 
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="chat.css">
 
-    <!-- Inline style to fix the header at the top & push container down -->
-    <style>
-        /* Pin the header at the top */
-        #header-placeholder {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 9999;
-        }
+  <!-- Inline style to fix the header at the top & push container down -->
+  <style>
+    /* Pin the header at the top */
+    #header-placeholder {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+    }
 
-        /* Add some top margin so .container appears below the fixed header */
-        .container {
-            margin-top: 120px; /* Adjust as needed */
-        }
+    /* Add some top margin so .container appears below the fixed header */
+    .container {
+      margin-top: 120px; /* Adjust as needed */
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 10; /* Consider margin:0 or margin:10px if needed */
-            font-family: Arial, sans-serif;
-            background-image: url('https://raw.githubusercontent.com/Johnson-Frontend/home/refs/heads/main/image/dic.png'); 
-            background-size: cover; 
-            background-position: center;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            padding: 60px;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.8); 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 4rem;
-            margin: 0 0 20px 0;
-            color: #f19f96;
-        }
-        p {
-            font-size: 1.25rem;
-            margin: 20px 0 20px 0;
-        }
-        a {
-            text-decoration: none;
-            padding: 12px 24px;
-            color: white;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        
-    </style>
+    /* Scope link styles ONLY to .container links */
+    .container a {
+      text-decoration: none;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .container a:hover {
+      background: linear-gradient(135deg, #5a0f9e 0%, #1f5bbf 100%);
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 10; /* Consider margin:0 or margin:10px if you prefer a small offset */
+      font-family: Arial, sans-serif;
+      background-image: url('https://raw.githubusercontent.com/Johnson-Frontend/home/refs/heads/main/image/dic.png'); 
+      background-size: cover; 
+      background-position: center;
+      color: #333;
+    }
+    .container {
+      text-align: center;
+      padding: 60px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.8); 
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 4rem;
+      margin: 0 0 20px 0;
+      color: #f19f96;
+    }
+    p {
+      font-size: 1.25rem;
+      margin: 20px 0 20px 0;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- 2) A container to inject header.html -->
-    <div id="header-placeholder"></div>
+  <!-- 2) A container to inject header.html -->
+  <div id="header-placeholder"></div>
 
-    <div class="container">
-        <h2>Thanks for Your Interest! 😊</h2>
-        <br>
-        <p>Unfortunately, this part is not implemented yet. If you have questions, feel free to reach out to 
-          <a class="email-link" href="mailto:JohnsonMarketer@outlook.com">HERE</a>.
-        </p>
-        <br>
-        <a href="index.html">Go Back to Home</a>
-        <br>
-        <br>
-    </div>
+  <div class="container">
+    <h2>Thanks for Your Interest! 😊</h2>
+    <br>
+    <p>
+      Unfortunately, this part is not implemented yet. If you have questions, feel free to reach out to 
+      <a class="email-link" href="mailto:JohnsonMarketer@outlook.com">HERE</a>.
+    </p>
+    <br>
+    <a href="index.html">Go Back to Home</a>
+    <br><br>
+  </div>
 
-    <!-- Chat widget -->
-    <div id="chatContainer"></div>
+  <!-- Chat widget -->
+  <div id="chatContainer"></div>
 
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 3) Fetch header.html and inject it into #header-placeholder
-            fetch('header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading header:', error));
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 3) Fetch header.html and inject it into #header-placeholder
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
 
-            // Focus on the input field when the page loads
-            const todoInput = document.getElementById('todo-input');
-            if (todoInput) {
-                todoInput.focus();
-            }
+      // Focus on the input field when the page loads
+      const todoInput = document.getElementById('todo-input');
+      if (todoInput) {
+        todoInput.focus();
+      }
 
-            // Load chat widget HTML
-            fetch('chat.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('chatContainer').innerHTML = data;
-                    // Initialize chat widget functionality
-                    const chatButton = document.getElementById('chatButton');
-                    const chatContainer = document.querySelector('.chat-container');
-                    const closeChat = document.getElementById('closeChat');
+      // Load chat widget HTML
+      fetch('chat.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('chatContainer').innerHTML = data;
+          // Initialize chat widget functionality
+          const chatButton = document.getElementById('chatButton');
+          const chatContainer = document.querySelector('.chat-container');
+          const closeChat = document.getElementById('closeChat');
 
-                    if (chatButton) {
-                        chatButton.addEventListener('click', function() {
-                            chatContainer.classList.toggle('active');
-                            console.log('Chat button clicked, chatContainer active:', chatContainer.classList.contains('active'));
-                        });
-                    } else {
-                        console.error('Chat button not found!');
-                    }
-
-                    if (closeChat) {
-                        closeChat.addEventListener('click', function() {
-                            chatContainer.classList.remove('active');
-                            console.log('Close chat button clicked');
-                        });
-                    } else {
-                        console.error('Close chat button not found!');
-                    }
-                })
-                .catch(error => console.error('Error loading chat widget:', error));
-        });
-
-        function navigateTo(url) {
-            window.location.href = url;
-        }
-
-        function searchProjects() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const projectCategories = document.querySelectorAll('.project-category');
-            let firstMatch = null;
-
-            projectCategories.forEach(category => {
-                const links = category.querySelectorAll('a');
-                links.forEach(link => {
-                    const text = link.textContent.toLowerCase();
-                    if (text.includes(input)) {
-                        link.innerHTML = text.replace(new RegExp(input, 'gi'), match => `<span class="highlight">${match}</span>`);
-                        if (!firstMatch) {
-                            firstMatch = link;
-                        }
-                    } else {
-                        link.innerHTML = text; // Reset the link text
-                    }
-                });
+          if (chatButton) {
+            chatButton.addEventListener('click', function() {
+              chatContainer.classList.toggle('active');
+              console.log('Chat button clicked, chatContainer active:', chatContainer.classList.contains('active'));
             });
+          } else {
+            console.error('Chat button not found!');
+          }
 
-            // Scroll to the first matching result
-            if (firstMatch) {
-                firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-
-        function openHighlightedLinks() {
-            const highlightedLinks = document.querySelectorAll('.highlight');
-            highlightedLinks.forEach(highlight => {
-                const link = highlight.closest('a');
-                if (link) {
-                    window.open(link.href, '_blank');
-                }
+          if (closeChat) {
+            closeChat.addEventListener('click', function() {
+              chatContainer.classList.remove('active');
+              console.log('Close chat button clicked');
             });
-        }
+          } else {
+            console.error('Close chat button not found!');
+          }
+        })
+        .catch(error => console.error('Error loading chat widget:', error));
+    });
 
-        function scrollToTop() {
-            const searchInput = document.getElementById('searchInput');
-            searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+    function navigateTo(url) {
+      window.location.href = url;
+    }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const projectListLink = document.querySelector('.project-list-link');
-            if (projectListLink) {
-                projectListLink.classList.add('pulse');
-                setTimeout(() => {
-                    projectListLink.classList.remove('pulse');
-                }, 1500); // Remove the pulse class after 1.5 seconds
+    function searchProjects() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const projectCategories = document.querySelectorAll('.project-category');
+      let firstMatch = null;
+
+      projectCategories.forEach(category => {
+        const links = category.querySelectorAll('a');
+        links.forEach(link => {
+          const text = link.textContent.toLowerCase();
+          if (text.includes(input)) {
+            link.innerHTML = text.replace(new RegExp(input, 'gi'), match => `<span class="highlight">${match}</span>`);
+            if (!firstMatch) {
+              firstMatch = link;
             }
+          } else {
+            link.innerHTML = text; // Reset the link text
+          }
         });
+      });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const placeholderText = "Search Johnson's projects...";
-            let index = 0;
+      // Scroll to the first matching result
+      if (firstMatch) {
+        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
 
-            function type() {
-                if (index < placeholderText.length) {
-                    searchInput.setAttribute('placeholder', placeholderText.substring(0, index + 1));
-                    index++;
-                    setTimeout(type, 100); // Adjust typing speed here
-                } else {
-                    setTimeout(() => {
-                        index = 0;
-                        type();
-                    }, 2000); // Pause before restarting
-                }
-            }
+    function openHighlightedLinks() {
+      const highlightedLinks = document.querySelectorAll('.highlight');
+      highlightedLinks.forEach(highlight => {
+        const link = highlight.closest('a');
+        if (link) {
+          window.open(link.href, '_blank');
+        }
+      });
+    }
 
+    function scrollToTop() {
+      const searchInput = document.getElementById('searchInput');
+      searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const projectListLink = document.querySelector('.project-list-link');
+      if (projectListLink) {
+        projectListLink.classList.add('pulse');
+        setTimeout(() => {
+          projectListLink.classList.remove('pulse');
+        }, 1500); // Remove the pulse class after 1.5 seconds
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      const placeholderText = "Search Johnson's projects...";
+      let index = 0;
+
+      function type() {
+        if (index < placeholderText.length) {
+          searchInput.setAttribute('placeholder', placeholderText.substring(0, index + 1));
+          index++;
+          setTimeout(type, 100); // Adjust typing speed here
+        } else {
+          setTimeout(() => {
+            index = 0;
             type();
-        });
+          }, 2000); // Pause before restarting
+        }
+      }
+      type();
+    });
 
-        // Load footer.html into the footer-placeholder div
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            });
-    </script>
+    // Load footer.html into the footer-placeholder div
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      });
+  </script>
 </body>
 </html>
