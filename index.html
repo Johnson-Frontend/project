@@ -811,11 +811,24 @@
         }
 
         .hero-image-placeholder {
-            width: 100%;
-            height: 400px;
-            background-color: transparent;
-            position: relative;
-        }
+    width: 100%;
+    height: 450px;
+    background-color: transparent;
+    position: relative;
+    background-image: url('https://johnsonmarketer.com/image/software.png');
+    
+    /* Ensure the image retains its original size */
+    background-size: 250px 250px;
+    
+    /* Position the image to the right and vertically center it */
+    background-position: 85.66% 60.66%; /* 2/3 horizontally, centered vertically */
+    
+    /* Prevent the background image from repeating */
+    background-repeat: no-repeat;
+    
+    /* Optional: If you want some padding or space on the left */
+    padding-right: 20px; /* Adjust as needed */
+}
 
         .timestamp {
             color: black; /* Change text color to black */
